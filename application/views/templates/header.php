@@ -33,7 +33,9 @@
                 <li class="dropdown"><a href="/about">About</a></li>
 
             </ul>
-
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown"><a href="/posts/create">Create Post</a></li>
+            </ul>
         </div>
     </div>
 </nav>
