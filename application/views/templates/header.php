@@ -35,6 +35,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown"><a href="/users/register">Register</a></li>
                 <li class="dropdown"><a href="/posts/create">Create Post</a></li>
                 <li class="dropdown"><a href="/categories/create">Create Category</a></li>
             </ul>
@@ -43,3 +44,39 @@
 </nav>
 
 <div class="container">
+    <?php if ($this->session->flashdata('user_registered')) : ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('user_registered') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('category_created')) : ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('category_created') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('comment_created')) : ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('comment_created') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('post_created')) : ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('post_created') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('post_deleted')) : ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('post_deleted') ?>
+        </p>
+    <?php endif; ?>
+
+
+    <?php if ($this->session->flashdata('post_updated')) : ?>
+    <p class="alert alert-success">
+        <?= $this->session->flashdata('post_updated') ?>
+    </p>
+<?php endif; ?>

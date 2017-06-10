@@ -19,6 +19,8 @@ class Comments extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->comment_model->create_comment($post_id);
+
+            $this->session->set_flashdata('comment_created', 'Your comment has been created');
             redirect('posts/' . $slug);
         }
     }

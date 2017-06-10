@@ -57,8 +57,8 @@ class Posts extends CI_Controller
             $config['upload_path'] = './application/assets/images/posts';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '2048';
-            $config['max_width'] = '500';
-            $config['max_height'] = '500';
+            $config['max_width'] = '2000';
+            $config['max_height'] = '2000';
 
             $this->load->library('upload', $config);
 
@@ -73,6 +73,8 @@ class Posts extends CI_Controller
 
 
             $this->post_model->create_post($post_image);
+
+            $this->session->set_flashdata('post_created', 'Your post has been created');
             redirect('posts');
         }
     }
@@ -80,6 +82,8 @@ class Posts extends CI_Controller
     public function delete($id)
     {
         $this->post_model->delete_post($id);
+
+        $this->session->set_flashdata('post_deleted', 'Your category has been deleted');
         redirect('posts');
     }
 
@@ -104,6 +108,8 @@ class Posts extends CI_Controller
     public function update()
     {
         $this->post_model->update_post();
+
+        $this->session->set_flashdata('post_updated', 'Your post has been updated');
         redirect('posts');
     }
 }
