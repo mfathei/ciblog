@@ -35,9 +35,15 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown"><a href="/users/register">Register</a></li>
-                <li class="dropdown"><a href="/posts/create">Create Post</a></li>
-                <li class="dropdown"><a href="/categories/create">Create Category</a></li>
+                <?php if (!$this->session->userdata('logged_in')) : ?>
+                    <li class="dropdown"><a href="/users/login">Login</a></li>
+                    <li class="dropdown"><a href="/users/register">Register</a></li>
+                <?php endif; ?>
+                <?php if ($this->session->userdata('logged_in')) : ?>
+                    <li class="dropdown"><a href="/posts/create">Create Post</a></li>
+                    <li class="dropdown"><a href="/categories/create">Create Category</a></li>
+                    <li class="dropdown"><a href="/users/logout">Logout</a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
@@ -76,7 +82,25 @@
 
 
     <?php if ($this->session->flashdata('post_updated')) : ?>
-    <p class="alert alert-success">
-        <?= $this->session->flashdata('post_updated') ?>
-    </p>
-<?php endif; ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('post_updated') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('login_failed')) : ?>
+        <p class="alert alert-danger">
+            <?= $this->session->flashdata('login_failed') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('user_loggedin')) : ?>
+        <p class="alert alert-success">
+            <?= $this->session->flashdata('user_loggedin') ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('user_loggedout')) : ?>
+        <p class="alert alert-warning">
+            <?= $this->session->flashdata('user_loggedout') ?>
+        </p>
+    <?php endif; ?>

@@ -33,4 +33,12 @@ class User_model extends CI_Model
         $query = $this->db->get_where('users', array('email' => $email));
         return empty($query->row_array());
     }
+
+    public function login($username, $password)
+    {
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $query = $this->db->get('users');
+        return $query->row(0)->id;
+    }
 }

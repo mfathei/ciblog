@@ -7,8 +7,12 @@ class Post_model extends CI_Model
         $this->load->database();
     }
 
-    public function get_posts($slug = false)
+    public function get_posts($slug = false, $limit = FALSE, $offset = FALSE)
     {
+
+        if($limit){
+            $this->db->limit($limit, $offset);
+        }
 
         if ($slug === false) {
             $this->db->order_by('posts.id', 'DESC');
@@ -21,33 +25,37 @@ class Post_model extends CI_Model
         return $query->row_array();
     }
 
-    public function create_post($post_image){
+    public function create_post($post_image)
+    {
         $slug = url_title($this->input->post('title'));
 
         $data = array(
             'title' => $this->input->post('title'),
-            'slug'  => $slug,
-            'body'  => $this->input->post('body'),
+            'slug' => $slug,
+            'body' => $this->input->post('body'),
             'category_id' => $this->input->post('category_id'),
-            'post_image' => $post_image
+            'user_id' => $this->session->userdata('user_id'),
+            'post_image' => $post_image,
         );
 
         return $this->db->insert('posts', $data);
     }
 
-    public function delete_post($id){
+    public function delete_post($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('posts');
         return true;
     }
 
-    public function update_post(){
+    public function update_post()
+    {
         $slug = url_title($this->input->post('title'));
 
         $data = array(
             'title' => $this->input->post('title'),
-            'slug'  => $slug,
-            'body'  => $this->input->post('body'),
+            'slug' => $slug,
+            'body' => $this->input->post('body'),
             'category_id' => $this->input->post('category_id')
         );
 
@@ -55,7 +63,8 @@ class Post_model extends CI_Model
         return $this->db->update('posts', $data);
     }
 
-    public function get_categories(){
+    public function get_categories()
+    {
         $query = $this->db->get('categories');
         return $query->result_array();
     }

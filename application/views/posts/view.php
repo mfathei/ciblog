@@ -5,20 +5,21 @@
 <div class="post-body">
     <?php echo $post['body']; ?>
 </div>
-<a href="/posts/edit/<?php echo $post['slug']; ?>" class="btn btn-default pull-left">Edit</a>
-<?php echo form_open('posts/delete/' . $post['id']); ?>
-<input type="submit" value="Delete" class="btn btn-danger">
-
+<?php if ($this->session->userdata('user_id') == $post['user_id']) : ?>
+    <a href="/posts/edit/<?php echo $post['slug']; ?>" class="btn btn-default pull-left">Edit</a>
+    <?php echo form_open('posts/delete/' . $post['id']); ?>
+    <input type="submit" value="Delete" class="btn btn-danger">
+<?php endif; ?>
 </form>
 
 <hr/>
 <h3>Comments</h3>
 <?php if ($comments) : ?>
-    <?php foreach($comments as $comment) : ?>
+    <?php foreach ($comments as $comment) : ?>
         <div class="well">
             <h5><?php echo $comment['body']; ?> [by <strong><?php echo $comment['name']; ?></strong>]</h5>
         </div>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
 <?php else : ?>
     <p>No Comments To Display</p>
 <?php endif; ?>

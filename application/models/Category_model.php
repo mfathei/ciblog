@@ -11,8 +11,14 @@ class Category_model extends CI_Model
     public function create_category()
     {
 
+        // check user logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+
         $data = array(
-            'name' => $this->input->post('name')
+            'name' => $this->input->post('name'),
+            'user_id' => $this->session->userdata('user_id')
         );
 
         return $this->db->insert('categories', $data);
@@ -40,5 +46,12 @@ class Category_model extends CI_Model
         $this->db->join('categories', 'categories.id = posts.category_id');
         $query = $this->db->get_where('posts', array('category_id' => $category_id));
         return $query->result_array();
+    }
+
+    public function delete_category($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('categories');
+        return true;
     }
 }
